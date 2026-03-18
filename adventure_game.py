@@ -1,77 +1,59 @@
-import time
 import random
 
 class AdventureGame:
     def __init__(self):
-        self.sanity = 100  # Player's sanity level
-        self.name = ""
-        self.story_path = []
+        self.sanity = 100
+        self.ending = None
+        self.intro = "Welcome to the Enchanted Garden! 🌷 Beware, many have disappeared here..."
 
-    def start_game(self):
-        self.typewriter_effect("Welcome to the Adventure Game!\n")
-        self.set_character_name()  # Set the character name
-        self.choose_path()  # Player starts at the first choice
+    def display_choices(self):
+        print("\nChoose your path:")
+        print("1 - Follow the Red-eyed Rabbit 🐇")
+        print("2 - Approach the Cottage 🏡")
+        print("3 - Explore the Ancient Forest 🌲")
 
-    def typewriter_effect(self, text):
-        for char in text:
-            print(char, end='', flush=True)
-            time.sleep(0.05)  # Delay between characters
-        print()  # New line at the end
+    def rabbit_path(self):
+        print("\nYou chase after the red-eyed rabbit... It leads you deeper into the garden.")
+        self.sanity -= random.randint(5, 15)
+        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
 
-    def set_character_name(self):
-        self.name = input("What is your character's name? ")
-        self.typewriter_effect(f"Ah, {self.name}! A fine name!\n")
+    def cottage_path(self):
+        print("\nYou reach a dilapidated cottage. A doll-like woman greets you with a sinister smile...")
+        self.sanity -= random.randint(10, 20)
+        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
 
-    def choose_path(self):
-        self.typewriter_effect("You find yourself at a crossroads. Do you go Left or Right? ")
-        choice = input("(L/R): ").strip().lower()
-        if choice == 'l':
-            self.path_left()
-        elif choice == 'r':
-            self.path_right()
-        else:
-            self.typewriter_effect("Not a valid choice! Try again.\n")
-            self.choose_path()  # Recur until valid choice
+    def forest_path(self):
+        print("\nAs you enter the forest, the trees whisper secrets. An ancient entity watches you...")
+        self.sanity -= random.randint(0, 25)
+        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
 
-    def path_left(self):
-        self.typewriter_effect("You head into the ancient forest...\n")
-        self.sanity -= random.randint(10, 30)  # Random sanity decrease
-        self.typewriter_effect(f"Your sanity level is now {self.sanity}.\n")
-        if self.sanity <= 0:
-            self.game_over("You've lost your sanity in the forest.")
-        else:
-            self.typewriter_effect("You encounter a dark creature! Choose to Flee or Face it!\n")
-            choice = input("(F/F): ").strip().lower()
-            if choice == 'f':
-                self.typewriter_effect("You flee back to safety!\n")
-                self.start_game()  # Restart to give another chance
+    def good_ending(self):
+        return "🌟 You escaped the garden! You feel free, but the shadows linger..."
+
+    def bad_ending(self):
+        endings = [
+            "You are never seen again, lost in the garden... 🌑",
+            "The doll woman smiles wider as she takes you... 😱",
+            "The ancient entity possesses you, and you become one with the forest... 🌲👻",
+            "The rabbit leads you to darkness, and you realize it's a trap... 🕳️"
+        ]
+        return random.choice(endings)
+
+    def play(self):
+        print(self.intro)
+        while self.ending is None:
+            self.display_choices()
+            choice = input("Enter your choice (1-3): ")
+            if choice == '1':
+                self.rabbit_path()
+            elif choice == '2':
+                self.cottage_path()
+            elif choice == '3':
+                self.forest_path()
             else:
-                self.game_over("You faced the darkness... and lost.")
-
-    def path_right(self):
-        self.typewriter_effect("You discover a cottage...\n")
-        self.typewriter_effect("Inside, a tea party awaits!\n")
-        self.typewriter_effect(f"Would you like to join {self.name}? (yes/no) ")
-        choice = input("(y/n): ").strip().lower()
-        if choice == 'y':
-            self.typewriter_effect("You enjoy a beautiful tea party!\n")
-            self.start_game()  # Option to restart
-        else:
-            self.typewriter_effect("You leave the cottage but find something eerie in the forest...\n")
-            self.path_left()  # Go back to left path
-
-    def game_over(self, reason):
-        self.typewriter_effect(reason)
-        self.typewriter_effect("Game Over!\n")
-        self.typewriter_effect(f"Thank you for playing, {self.name}!\n")
-        self.typewriter_effect("Would you like to play again? (yes/no)")
-        choice = input("(y/n): ").strip().lower()
-        if choice == 'y':
-            self.sanity = 100  # Reset sanity
-            self.start_game()  # Restart
-        else:
-            self.typewriter_effect("Farewell!")
+                print("Invalid choice. Please select 1, 2, or 3.")
+        print(self.ending)
 
 if __name__ == '__main__':
-    game = AdventureGame()  # Create an instance of the game
-    game.start_game()  # Start the game
+    game = AdventureGame()
+    game.play()
