@@ -1,59 +1,67 @@
-import random
+# Adventure Game
 
-class AdventureGame:
-    def __init__(self):
-        self.sanity = 100
-        self.ending = None
-        self.intro = "Welcome to the Enchanted Garden! 🌷 Beware, many have disappeared here..."
+## Introduction
+Welcome to the expanded version of the adventure game! In this immersive experience, you will embark on a journey filled with multiple branching paths, intriguing characters, and engaging mini-games. Your choices will shape the story, leading to various outcomes.
 
-    def display_choices(self):
-        print("\nChoose your path:")
-        print("1 - Follow the Red-eyed Rabbit 🐇")
-        print("2 - Approach the Cottage 🏡")
-        print("3 - Explore the Ancient Forest 🌲")
+## Story Depth
+Set in a mystical world where you are a brave adventurer, your quest is to uncover the secrets of the ancient land. You will encounter a range of characters, each with their own stories and quests.
 
-    def rabbit_path(self):
-        print("\nYou chase after the red-eyed rabbit... It leads you deeper into the garden.")
-        self.sanity -= random.randint(5, 15)
-        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
+## Main Choices
+1. **Explore the Forest**  
+   - Discover hidden treasures  
+   - Solve the riddle of the ancient tree.
+   - Encounter a friendly fairy offering guidance.
 
-    def cottage_path(self):
-        print("\nYou reach a dilapidated cottage. A doll-like woman greets you with a sinister smile...")
-        self.sanity -= random.randint(10, 20)
-        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
+2. **Visit the Marketplace**  
+   - Bargain for magical items.
+   - Participate in a dancing challenge.
+   - Meet a mysterious merchant.
 
-    def forest_path(self):
-        print("\nAs you enter the forest, the trees whisper secrets. An ancient entity watches you...")
-        self.sanity -= random.randint(0, 25)
-        self.ending = self.bad_ending() if self.sanity < 50 else self.good_ending()
+3. **Climb the Mountain**  
+   - Face the puzzle guardian.
+   - Find the hidden cave with rare gems.
+   - Challenge a rival adventurer.
 
-    def good_ending(self):
-        return "🌟 You escaped the garden! You feel free, but the shadows linger..."
+4. **Attend the Royal Ball**  
+   - Engage in tea party games with nobles.
+   - Discover secrets about the kingdom.
+   - Choose to help or deceive the prince/princess.
 
-    def bad_ending(self):
-        endings = [
-            "You are never seen again, lost in the garden... 🌑",
-            "The doll woman smiles wider as she takes you... 😱",
-            "The ancient entity possesses you, and you become one with the forest... 🌲👻",
-            "The rabbit leads you to darkness, and you realize it's a trap... 🕳️"
-        ]
-        return random.choice(endings)
+5. **Investigate the Haunted Ruins**  
+   - Solve the ghost's riddle for a reward.
+   - Navigate through various traps.
+   - Face your fears in a life-or-death scenario.
 
-    def play(self):
-        print(self.intro)
-        while self.ending is None:
-            self.display_choices()
-            choice = input("Enter your choice (1-3): ")
-            if choice == '1':
-                self.rabbit_path()
-            elif choice == '2':
-                self.cottage_path()
-            elif choice == '3':
-                self.forest_path()
-            else:
-                print("Invalid choice. Please select 1, 2, or 3.")
-        print(self.ending)
+## Sub-Choices for Each Path
+- **Exploring the Forest:** 
+   - Follow the fairy's advice or venture alone?
+    - Trust the talking squirrel or take the hidden path?
 
-if __name__ == '__main__':
-    game = AdventureGame()
-    game.play()
+- **Visiting the Marketplace:** 
+   - Steal an item or buy it honestly?
+   - Help a fellow shopper or ignore them?
+
+## Mini-Games/Activities
+- **Riddles:** Encounter characters that pose riddles to unlock secrets.
+- **Dancing:** Join in rhythm games at the ball, improving your charm.
+- **Puzzle Solving:** Work through brain teasers to open locked doors in the mountain cave.
+- **Tea Party Games:** Engage in fun mini-games to win special items.
+
+## Inventory System
+Keep track of items you collect during your journey! You can hold:
+- Magical artifacts
+- Food for stamina recovery
+- Clue items for puzzles
+
+## Character Interactions
+Develop relationships with characters:
+- Build alliances that affect story outcomes.
+- Make enemies who will hinder your progress.
+
+## Endings
+The game features multiple outcomes:
+- **Good Endings:** Success through collaboration and wit.
+- **Bad Endings:** Consequences of poor choices and betrayal.
+
+## Conclusion
+Your adventure awaits! Choose wisely, engage in activities, and enjoy the rich narrative of your new adventure game experience.
